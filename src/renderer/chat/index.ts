@@ -1,6 +1,6 @@
  import * as net from "net";
 import * as tls from "tls";
-import * as SlateIRC from "slate-irc";
+import SlateIRC from "slate-irc";
 
 import * as settings from "../settings";
 import * as tabs from "../tabs";

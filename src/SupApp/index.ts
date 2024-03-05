@@ -2,11 +2,11 @@ import * as crypto from "crypto";
 import * as electron from "electron";
 import * as async from "async";
 import * as fs from "fs";
-import * as fsMkdirp from "mkdirp";
+import fsMkdirp from "mkdirp";
 import * as childProcess from "child_process";
 import * as os from "os";
 
-const currentWindow = electron.remote.getCurrentWindow();
+const currentWindow = electron.BrowserWindow.getFocusedWindow();
 
 const tmpRoot = os.tmpdir();
 const tmpCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -115,9 +115,9 @@ namespace SupApp {
       electronWindowOptions.minHeight = options.minSize.height;
     }
 
-    const window = new electron.remote.BrowserWindow(electronWindowOptions);
+    const window = new electron.BrowserWindow(electronWindowOptions);
 
-    window.webContents.on("will-navigate", (event: Event) => { event.preventDefault(); });
+    window.webContents.on("will-navigate", (event: electron.Event) => { event.preventDefault(); });
     window.loadURL(url);
     return window;
   }
@@ -125,9 +125,9 @@ namespace SupApp {
   export function openLink(url: string) { electron.shell.openExternal(url); }
   export function showItemInFolder(path: string) { electron.shell.showItemInFolder(path); }
 
-  export function createMenu() { return new electron.remote.Menu(); }
+  export function createMenu() { return new electron.Menu(); }
   export function createMenuItem(options: Electron.MenuItemConstructorOptions) {
-    return new electron.remote.MenuItem(options);
+    return new electron.MenuItem(options);
   }
 
   export namespace clipboard {

@@ -136,7 +136,8 @@ function onShowOrHidePassword() {
   }
 }
 
-let scheduleSaveTimeoutId: NodeJS.Timer;
+let scheduleSaveTimeoutId: NodeJS.Timeout;
+
 export function scheduleSave() {
   if (scheduleSaveTimeoutId != null) return;
   scheduleSaveTimeoutId = setTimeout(applyScheduledSave, 30 * 1000);

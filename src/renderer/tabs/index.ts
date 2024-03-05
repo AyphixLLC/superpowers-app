@@ -1,4 +1,4 @@
-import * as TabStrip from "tab-strip";
+import TabStrip from "tab-strip";
 
 const tabsBarElt = document.querySelector(".tabs-bar") as HTMLElement;
 export const tabStrip = new TabStrip(tabsBarElt);

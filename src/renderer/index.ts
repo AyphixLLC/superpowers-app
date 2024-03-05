@@ -1,7 +1,6 @@
 import * as electron from "electron";
 import * as dialogs from "simple-dialogs";
 import * as async from "async";
-
 import * as i18n from "../shared/i18n";
 import * as settings from "./settings";
 import * as splashScreen from "./splashScreen";
@@ -52,7 +51,7 @@ function onSettingsLoaded(err: Error) {
 
     new dialogs.ConfirmDialog(label, options, (shouldProceed) => {
       if (!shouldProceed) {
-        electron.remote.app.quit();
+        electron.app.quit();
         return;
       }
 

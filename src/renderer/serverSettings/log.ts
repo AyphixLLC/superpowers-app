@@ -1,4 +1,4 @@
-import * as ResizeHandle from "resize-handle";
+import ResizeHandle from "resize-handle";
 
 new ResizeHandle(document.querySelector(".server-log") as HTMLDivElement, "bottom");
 

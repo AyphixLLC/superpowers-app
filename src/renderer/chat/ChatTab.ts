@@ -1,12 +1,12 @@
-import * as SlateIRC from "slate-irc";
-import * as ResizeHandle from "resize-handle";
-import * as TreeView from "dnd-tree-view";
+import SlateIRC from "slate-irc";
+import ResizeHandle from "resize-handle";
+import TreeView from "dnd-tree-view";
 import { tabStrip, panesElt } from "../tabs";
 import * as chat from "./index";
 import * as tabs from  "../tabs";
 
 import html from "../html";
-import * as escapeHTML from "escape-html";
+import escapeHTML from "escape-html";
 import getBackgroundColor from "./getBackgroundColor";
 
 const tabTemplate = document.querySelector("template.chat-tab") as HTMLTemplateElement;

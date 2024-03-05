@@ -2,7 +2,7 @@ import * as electron from "electron";
 import { ChildProcess } from "child_process";
 import * as async from "async";
 import forkServerProcess from "../forkServerProcess";
-import * as TreeView from "dnd-tree-view";
+import TreeView from "dnd-tree-view";
 import * as dialogs from "simple-dialogs";
 import html from "../html";
 import * as i18n from "../../shared/i18n";

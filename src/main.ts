@@ -5,6 +5,8 @@ import getPaths from "./getPaths";
 import getLanguageCode from "./getLanguageCode";
 import * as SupAppIPC from "./ipc";
 import * as url from "url";
+import { initialize, enable } from "@electron/remote/main";
+
 
 let corePath: string;
 let userDataPath: string;
@@ -122,17 +124,23 @@ function setupMainWindow() {
     minWidth: 800, minHeight: 480,
     useContentSize: true, autoHideMenuBar: true,
     show: false,
-    webPreferences: { nodeIntegration: true, webviewTag: true }
+    webPreferences: { nodeIntegration: true, contextIsolation: false, webviewTag: true }
   });
 
+  mainWindow.webContents.openDevTools();
+
+  enable(mainWindow.webContents);
+
   mainWindow.loadURL(`file://${__dirname}/renderer/${i18n.getLocalizedFilename("index.html")}`);
+
+  initialize();
 
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.webContents.send("init", corePath, userDataPath, i18n.languageCode);
     mainWindow.show();
   });
 
-  mainWindow.webContents.on("will-navigate", (event: Event, newURL: string) => {
+  mainWindow.webContents.on("will-navigate", (event: electron.Event, newURL: string) => {
     event.preventDefault();
     electron.shell.openExternal(newURL);
   });

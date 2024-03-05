@@ -1,9 +1,9 @@
-import * as electron from "electron";
+import electron from "electron";
 import * as async from "async";
 import * as path from "path";
 import * as fs from "fs";
 import * as dialogs from "simple-dialogs";
-import * as mkdirp from "mkdirp";
+import mkdirp from "mkdirp";
 import * as dummy_https from "https";
 
 import forkServerProcess from "./forkServerProcess";
@@ -12,13 +12,14 @@ import * as systemServerSettings from "./serverSettings/systems";
 import * as i18n from "../shared/i18n";
 import * as splashScreen from "./splashScreen";
 import fetch from "../shared/fetch";
+import { app } from "@electron/remote";
 
 /* tslint:disable */
 const https: typeof dummy_https = require("follow-redirects").https;
 const yauzl = require("yauzl");
 /* tslint:enable */
 
-export let appVersion = electron.remote.app.getVersion();
+export let appVersion = app.getVersion();
 if (appVersion === "0.0.0-dev") {
   appVersion = `v${JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, { encoding: "utf8" })).version}-dev`;
 } else appVersion = `v${appVersion}`;
@@ -28,7 +29,7 @@ export function checkForUpdates(callback: (err: Error) => void) {
 }
 
 function checkAppUpdate(callback: (err: Error) => void) {
-  if (electron.remote.app.getVersion() === "0.0.0-dev") { callback(null); return; }
+  if (app.getVersion() === "0.0.0-dev") { callback(null); return; }
 
   fetch(`https://api.github.com/repos/superpowers/superpowers-app/releases/latest`, { type: "json" }, (err, lastRelease) => {
     if (err != null) { callback(err); return; }
@@ -43,7 +44,7 @@ function checkAppUpdate(callback: (err: Error) => void) {
     new dialogs.ConfirmDialog(label, options, (shouldDownload) => {
       if (shouldDownload) {
         electron.shell.openExternal("https://github.com/superpowers/superpowers-app/releases/latest");
-        electron.remote.app.quit();
+        electron.app.quit();
         return;
       }
 
